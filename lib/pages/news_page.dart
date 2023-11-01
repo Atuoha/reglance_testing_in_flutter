@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../providers/news_notifier.dart';
 import 'article_page.dart';
 
@@ -12,6 +11,9 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
+  bool scrollingUp = false;
+
+
   @override
   void initState() {
     super.initState();
@@ -22,6 +24,7 @@ class _NewsPageState extends State<NewsPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('News'),
@@ -33,45 +36,47 @@ class _NewsPageState extends State<NewsPage> {
               child: CircularProgressIndicator(),
             );
           }
-          return ListView.builder(
-            itemCount: notifier.articles.length,
-            itemBuilder: (_, index) {
-              final article = notifier.articles[index];
-              return Card(
-                elevation: 2,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => ArticlePage(article: article),
+          return NotificationListener<ScrollNotification>(
+            child: ListView.builder(
+              itemCount: notifier.articles.length,
+              itemBuilder: (_, index) {
+                final article = notifier.articles[index];
+                return Card(
+                  elevation: 2,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => ArticlePage(article: article),
+                        ),
+                      );
+                    },
+                    child: ListTile(
+                      leading: Container(
+                        height: 40,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey.withOpacity(0.3),
+                        ),
+                        child: const Icon(Icons.feed_outlined),
                       ),
-                    );
-                  },
-                  child: ListTile(
-                    leading: Container(
-                      height: 40,
-                      width: 60,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.grey.withOpacity(0.3),
+                      title: Text(article.title),
+                      subtitle: Text(
+                        article.content,
+                        textAlign: TextAlign.justify,
+                        maxLines: 4,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      child: const Icon(Icons.feed_outlined),
+                      trailing: const Icon(Icons.chevron_right),
                     ),
-                    title: Text(article.title),
-                    subtitle: Text(
-                      article.content,
-                      textAlign: TextAlign.justify,
-                      maxLines: 4,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    trailing: const Icon(Icons.chevron_right),
                   ),
-                ),
-              );
-            },
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: 16,
+                );
+              },
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 16,
+              ),
             ),
           );
         },

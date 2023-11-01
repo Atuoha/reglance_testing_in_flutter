@@ -5,7 +5,7 @@ import 'package:re_glance_testing_in_flutter/models/article.dart';
 class NewsService {
   // Simulating a remote database
   final _articles = List.generate(
-    10,
+    50,
         (_) => Article(
       title: lorem(paragraphs: 1, words: 3),
       content: lorem(paragraphs: 10, words: 500),
