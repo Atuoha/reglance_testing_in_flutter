@@ -4,6 +4,8 @@ import 'package:re_glance_testing_in_flutter/pages/news_page.dart';
 import 'package:re_glance_testing_in_flutter/providers/news_notifier.dart';
 import 'package:re_glance_testing_in_flutter/services/news_service.dart';
 
+import 'integration_test/screens/home.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -11,12 +13,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'News App',
-      home: ChangeNotifierProvider(
-        create: (_) => NewsChangeNotifier(NewsService()),
-        child: const NewsPage(),
-      ),
-    );
+    return const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'News App',
+        // home: ChangeNotifierProvider(
+        //   create: (_) => NewsChangeNotifier(NewsService()),
+        //   child: const NewsPage(),
+        // ),
+
+        home: HomeScreen() //integration test
+        );
   }
 }
