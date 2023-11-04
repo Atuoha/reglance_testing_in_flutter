@@ -2,16 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:re_glance_testing_in_flutter/integration_test/screens/display_text.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class TypingScreen extends StatefulWidget {
+  const TypingScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<TypingScreen> createState() => _TypingScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _TypingScreenState extends State<TypingScreen> {
   final TextEditingController textEditingController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  void doOnInit() {
+    // Todo implement this
+  }
 
   void submitText() {
     FocusScope.of(context).unfocus();
@@ -21,13 +25,16 @@ class _HomeScreenState extends State<HomeScreen> {
       return;
     }
 
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => DisplayText(
-          text: textEditingController.text.trim(),
-        ),
-      ),
-    );
+    Navigator.of(context)
+        .push(
+          MaterialPageRoute(
+            builder: (context) => DisplayTextScreen(
+              text: textEditingController.text.trim(),
+              doOnInit: doOnInit,
+            ),
+          ),
+        )
+        .then((value) => {textEditingController.clear()});
   }
 
   @override
@@ -51,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
+                key: const Key('text-form'),
                 controller: textEditingController,
                 autofocus: true,
                 validator: (value) {

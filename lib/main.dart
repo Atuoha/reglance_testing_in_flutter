@@ -4,7 +4,7 @@ import 'package:re_glance_testing_in_flutter/pages/news_page.dart';
 import 'package:re_glance_testing_in_flutter/providers/news_notifier.dart';
 import 'package:re_glance_testing_in_flutter/services/news_service.dart';
 
-import 'integration_test/screens/home.dart';
+import 'integration_test/screens/typing.dart';
 
 void main() => runApp(const MyApp());
 
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         //   child: const NewsPage(),
         // ),
 
-        home: HomeScreen() //integration test
+        home: TypingScreen() //integration test
         );
   }
 }

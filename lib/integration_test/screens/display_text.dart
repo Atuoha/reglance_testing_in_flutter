@@ -1,21 +1,34 @@
 import 'package:flutter/material.dart';
 
-class DisplayText extends StatelessWidget {
-  const DisplayText({super.key, required this.text});
+class DisplayTextScreen extends StatefulWidget {
+  const DisplayTextScreen({super.key, required this.text,required this.doOnInit,});
 
   final String text;
+  final Function doOnInit;
+
+  @override
+  State<DisplayTextScreen> createState() => _DisplayTextScreenState();
+}
+
+class _DisplayTextScreenState extends State<DisplayTextScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    widget.doOnInit();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Display Text'),
+        title:  Text(widget.text),
         elevation: 0,
       ),
       body: Center(
         child: RichText(
           text: TextSpan(
-            text: 'Enter text is: ',
+            text: 'Entered text is: ',
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.normal,
@@ -23,7 +36,7 @@ class DisplayText extends StatelessWidget {
             ),
             children: [
               TextSpan(
-                text: text,
+                text: widget.text,
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
