@@ -1,5 +1,7 @@
 # re_glance_testing_in_flutter
 
+flutter driver --driver=test_driver/integration_driver.dart --target=integration_test/app_test.dart
+
 A flutter project for reglancing at testing in flutter
 
 ## Getting Started
