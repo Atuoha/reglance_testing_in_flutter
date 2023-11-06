@@ -2,6 +2,10 @@
 
 flutter driver --driver=test_driver/integration_driver.dart --target=integration_test/app_test.dart
 
+openssl base64 -in ~/Downloads/integration-test-flutter-72e69-9a1bea24a294.json -out ~/Downloads/outfile.txt
+
+
+
 A flutter project for reglancing at testing in flutter
 
 ## Getting Started
