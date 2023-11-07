@@ -67,7 +67,10 @@ void main() {
 
   testWidgets(
       'Test that the fields are '
-      'filled and it goes to a new page', (
+      'filled and it goes to a new page and that the check box the '
+      'first checkbox is checked and others are not '
+      'checked then click on the back button and go '
+      'back to the login button with the text fields empty', (
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(const MyApp());
@@ -88,5 +91,23 @@ void main() {
     expect(find.byKey(const Key('password')), findsNothing);
 
     expect(find.text('Check List'), findsOneWidget);
+    expect(find.byType(CheckboxListTile).first, findsOneWidget);
+    expect(tester.widget<CheckboxListTile>(find.byType(CheckboxListTile).first).value, isFalse);
+    await tester.tap(find.byType(CheckboxListTile).first);
+    await tester.pumpAndSettle();
+    expect(tester.widget<CheckboxListTile>(find.byType(CheckboxListTile).first).value, isTrue);
+
+
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Login with credentials'), findsOneWidget);
+    expect(find.byKey(const Key('email')), findsOneWidget);
+    expect(find.byKey(const Key('password')), findsOneWidget);
+
+    expect(find.text('Check List'), findsNothing);
+    expect(find.text(email), findsNothing);
+    expect(find.text(password), findsNothing);
+
   });
 }
