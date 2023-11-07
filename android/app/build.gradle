@@ -32,6 +32,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    // Patrol testing
+    testOptions {
+        execution "ANDROIDX_TEST_ORCHESTRATOR"
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -50,7 +55,12 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
 
+        // normal integration testing
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Patrol testing
+        testInstrumentationRunner "pl.leancode.patrol.PatrolJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: "true"
     }
 
     buildTypes {
@@ -69,6 +79,11 @@ flutter {
 dependencies {
     testImplementation 'junit:junit:4.12'
 
+    // integration testing
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+
+    // Patrol
+    androidTestUtil "androidx.test:orchestrator:1.4.2"
 }
